@@ -1,5 +1,6 @@
 const { PeerServer } = require("peer");
 const { uniqueNamesGenerator, adjectives, animals } = require("unique-names-generator");
+const rateLimit = require("express-rate-limit");
 
 const generateClientId = () =>
     uniqueNamesGenerator({
@@ -8,4 +9,13 @@ const generateClientId = () =>
         length: 2,
     });
 
-PeerServer({ port: 9000, proxied: true, generateClientId });
+const app = PeerServer({ port: 9000, proxied: true, generateClientId });
+
+app.use(
+    rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+        standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+        legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    })
+);
