@@ -1,19 +1,11 @@
 const { PeerServer } = require("peer");
-const {
-    uniqueNamesGenerator,
-    adjectives,
-    colors,
-    animals,
-    NumberDictionary,
-} = require("unique-names-generator");
-
-const numbers = NumberDictionary.generate({ min: 1000, max: 9999 });
+const { uniqueNamesGenerator, adjectives, animals } = require("unique-names-generator");
 
 const generateClientId = () =>
     uniqueNamesGenerator({
-        dictionaries: [adjectives, colors, animals, numbers],
+        dictionaries: [adjectives, animals],
         separator: "-",
-        length: 4,
+        length: 2,
     });
 
 PeerServer({ port: 9000, proxied: true, generateClientId });
