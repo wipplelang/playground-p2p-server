@@ -6,4 +6,4 @@ RUN npm install -g pm2
 COPY . .
 RUN npm install
 
-CMD ["pm2-runtime", "."]
+CMD ["/bin/sh", "-c", "pm2-runtime . & caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"]
