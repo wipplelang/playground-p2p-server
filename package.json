@@ -1,0 +1,9 @@
+{
+    "name": "wipple-playground-p2p-server",
+    "private": true,
+    "main": "src/index.js",
+    "dependencies": {
+        "peer": "^1.0.0",
+        "unique-names-generator": "^4.7.1"
+    }
+}
